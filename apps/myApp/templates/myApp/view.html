@@ -1,0 +1,23 @@
+<html lang="en">
+    <head>
+        <title>Dashboard</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'myApp/css/styles.css' %}">
+    </head>
+    <body>
+      <form action="/dashboard" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Home">
+      </form>
+      <a href='/logout'>Log Out</a>
+        <div >
+          <h1> {{ item.name }}</h1>
+
+        </div>
+        <h2>Users who added this product/item under their wishlist</h2>
+        <div>
+          {% for user in users %}
+          <p>{{user.user_id.first_name}}</p>
+          {% endfor %}
+        </div>
+    </body>

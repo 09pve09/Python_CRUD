@@ -1,0 +1,65 @@
+<html lang="en">
+    <head>
+        <title>Dashboard</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'myApp/css/styles.css' %}">
+    </head>
+    <body>
+        <div >
+          <h1> Welcome, {{ request.session.first_name }} </h1>
+          <form action="/itemrender" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Add Item">
+          </form>
+          <a href='/logout'>Log Out</a>
+        </div>
+        <h2>Your WishList:</h2>
+
+        <div>
+          <table>
+            <tr>
+              <th>Item</th>
+              <th>Added By</th>
+              <th>Date Added</th>
+              <th>Action</th>
+            </tr>
+          {% for wish in mywishes %}
+          <tr>
+            <td><a href="/wish_items/{{wish.item_id.id}}">{{wish.item_id.name}}</a></td>
+            <td>{{wish.user_id.first_name}}</td>
+            <td>{{wish.created_at}}</td>
+                <td>
+                  <form action="/delete/{{wish.item_id.id}}" method="post">
+                  {% csrf_token %}
+                  <input type="submit" value="Delete">
+                  </form>
+                </td>
+          </tr>
+          {% endfor %}
+          </table>
+        </div>
+        <h2>Other User's Wish List:</h2>
+        <div>
+          <table>
+            <tr>
+              <th>Item</th>
+              <th>Added By</th>
+              <th>Date Added</th>
+              <th>Action</th>
+            </tr>
+            {% for wish in wishes %}
+            <tr>
+              <td><a href="/wish_items/{{wish.item_id.id}}">{{wish.item_id.name}}</a></td>
+              <td>{{wish.user_id.first_name}}</td>
+              <td>{{wish.created_at}}</td>
+                  <td>
+                    <form action="/add/{{wish.item_id.id}}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Add to My Wish List">
+                    </form>
+                  </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+    </body>

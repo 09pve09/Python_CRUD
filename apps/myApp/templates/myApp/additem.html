@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add A Book</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'myApp/css/styles.css' %}">
+  </head>
+  <body>
+    <form action="/dashboard" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Home">
+    </form>
+      <a href='/logout'>Log Out</a>
+    <h1>Add a New Item To Your WishList</h1>
+    <form action='/createitem' method="post">
+      {% csrf_token %}
+    <input type="text" name="item_name">
+    <input type="submit" value="Add">
+
+
+  </body>
+</html>

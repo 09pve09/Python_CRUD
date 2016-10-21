@@ -1,0 +1,34 @@
+<html lang="en">
+    <head>
+        <title>Belt</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'myApp/css/styles.css' %}">
+    </head>
+    <body>
+        <h1>Registration Form</h1>
+        {% for message in messages %}
+          <p id="warning">{{ message }}</p>
+          {% endfor %}
+        <div class="formbox">
+            <form action="/validate" method="post">
+                {% csrf_token %}
+                FirstName<input type="text" name="first_name">
+                NickName<input type="text" name="user_name">
+                Password<input type="password" name="password">
+                Confirm Password<input type="password" name="confirm_password">
+                Date Hired<input type="date" name="date_hired" max="2016-10-23">
+                <input type="submit" value="SUBMIT">
+            </form>
+        </div>
+        </br>
+        <h1>Login</h1>
+        <div class="formbox">
+            <form action="/login" method="post">
+              {% csrf_token %}
+                User Name<input type="text" name="user_name">
+                Password<input type="password" name="password">
+                <input type="submit" value="SUBMIT">
+            </form>
+        </div>
+    </body>
+</html>
